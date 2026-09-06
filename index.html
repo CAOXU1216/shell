@@ -90,6 +90,125 @@ body{
 }
 .nav button .ico{display:block;font-size:21px;margin-bottom:3px}
 .nav button.on{background:var(--sidebar-active)}
+.nav button.editing{background:rgba(255,255,255,.08)}
+.nav button.editing.on{background:var(--sidebar-active)}
+.edit-bar{display:flex;flex-direction:column;align-items:center;gap:6px;padding:6px 4px 10px;margin-bottom:6px;border-bottom:1px dashed rgba(255,255,255,.22);flex-shrink:0}
+.edit-bar[hidden]{display:none}
+.edit-bar .edit-hint{font-size:10px;color:var(--sidebar-text);opacity:.75;letter-spacing:.05em}
+.edit-bar .edit-done{font-size:11px;padding:5px 14px;border:1px solid rgba(255,255,255,.55);background:transparent;color:var(--sidebar-text);border-radius:999px;font-family:inherit;cursor:pointer;line-height:1.4}
+.edit-bar .edit-done:active{background:rgba(255,255,255,.12)}
+.edit-tool{display:flex;justify-content:space-between;width:100%;padding:0 4px;margin-top:2px;font-size:13px;line-height:1;opacity:.95}
+.edit-tool span{cursor:pointer;padding:3px 5px;border-radius:6px;color:var(--sidebar-text);user-select:none}
+.edit-tool span:active{background:rgba(255,255,255,.18)}
+.edit-tool .ed-pin{opacity:.5;cursor:default}
+.edit-tool .ed-del{color:#f0a896}
+.nav button[data-pin]{opacity:.95}
+
+/* ==== 今日卡片（可长按编辑）==== */
+.tcard{position:relative;transition:box-shadow .15s,border-color .15s}
+.tcard.card-editing{border-color:var(--accent);box-shadow:0 0 0 2px rgba(201,126,74,.22)}
+.tcard.card-editing::after{content:'长按编辑中';position:absolute;top:-9px;left:12px;font-size:10px;padding:2px 8px;background:var(--accent);color:#fff;border-radius:999px;letter-spacing:.05em}
+.card-tools{display:flex;justify-content:flex-end;gap:6px;padding:8px 0 0;margin-top:10px;border-top:1px dashed rgba(128,128,128,.25);font-size:14px}
+.card-tools span{cursor:pointer;padding:3px 10px;border-radius:6px;color:var(--text-dim);user-select:none;font-weight:500}
+.card-tools span:active{background:rgba(128,128,128,.18)}
+.card-tools span:last-child{color:#d9534f}
+.card-tools span.card-tools-done{color:var(--accent);margin-left:6px;padding-left:14px;border-left:1px dashed rgba(128,128,128,.35)}
+.edit-page-bar{display:flex;align-items:center;justify-content:space-between;padding:9px 14px;border-radius:12px;background:rgba(201,126,74,.1);border:1px dashed var(--accent);font-size:13px;color:var(--text);margin-bottom:10px;position:sticky;top:8px;z-index:10}
+.edit-page-bar[hidden]{display:none}
+.edit-page-bar .edit-done{font-size:12px;padding:5px 14px;border:1px solid var(--accent);background:transparent;color:var(--accent);border-radius:999px;font-family:inherit;cursor:pointer;line-height:1.4}
+.edit-page-bar .edit-done:active{background:rgba(201,126,74,.12)}
+
+/* ==== 行内编辑（吃药计划等）==== */
+.item.editing{flex-wrap:wrap;gap:8px;padding:10px 12px;background:rgba(201,126,74,.06);border-radius:10px;border:1px dashed var(--accent)}
+.item input.ip{flex:1;min-width:0;padding:6px 10px;border:1px solid rgba(128,128,128,.28);border-radius:6px;background:transparent;font-size:16px;font-family:inherit;color:var(--text)}
+.item input.ip:focus{outline:none;border-color:var(--accent)}
+.item input.ip-times{max-width:140px;font-variant-numeric:tabular-nums}
+.item .ip-actions{display:flex;gap:6px;margin-left:auto;flex-shrink:0}
+
+/* ════════════════════════════════════════════════════════════
+   运动·打卡列表与日历
+   ════════════════════════════════════════════════════════════ */
+.gym-checkins{display:flex;flex-direction:column;gap:6px;width:100%;margin-top:2px}
+.gym-checkin{
+  display:flex;align-items:center;gap:8px;
+  padding:6px 8px;border:1px solid rgba(128,128,128,.16);
+  border-radius:8px;background:rgba(255,255,255,.18)
+}
+.gym-checkin-time{
+  flex-shrink:0;font-size:13px;font-weight:600;
+  font-variant-numeric:tabular-nums;color:var(--accent);
+  width:42px
+}
+.gym-checkin .gym-note{
+  flex:1;min-width:0;padding:5px 9px;
+  border:1px solid transparent;border-radius:6px;
+  background:transparent;font-size:14px;font-family:inherit;color:var(--text)
+}
+.gym-checkin .gym-note:focus{
+  outline:none;border-color:var(--accent);background:rgba(255,255,255,.4)
+}
+.gym-checkin .gym-note::placeholder{color:var(--text-dim);opacity:.55}
+.gym-checkin .del{
+  flex-shrink:0;background:transparent;border:none;
+  color:var(--text-dim);font-size:16px;cursor:pointer;padding:0 6px;opacity:.7
+}
+.gym-checkin .del:hover{color:#b6623b;opacity:1}
+
+.gym-cal{padding-top:2px}
+.gym-cal-head{
+  display:flex;align-items:center;justify-content:space-between;margin-bottom:8px
+}
+.gym-cal-title{font-size:15px;font-weight:600;letter-spacing:.04em}
+.gym-cal-head .btn{padding:5px 12px;font-size:13px}
+.gym-cal-weekrow{
+  display:grid;grid-template-columns:repeat(7,1fr);
+  margin-bottom:4px;text-align:center
+}
+.gym-cal-weekrow .wk{
+  font-size:11px;color:var(--text-dim);letter-spacing:.05em;font-weight:600
+}
+.gym-cal-grid{
+  display:grid;grid-template-columns:repeat(7,1fr);
+  gap:4px
+}
+.gym-cal-day{
+  position:relative;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  aspect-ratio:1/1;min-height:40px;
+  border-radius:8px;cursor:pointer;
+  border:1px solid rgba(128,128,128,.12);
+  background:transparent;transition:background .12s,border-color .12s
+}
+.gym-cal-day:hover{background:rgba(128,128,128,.08)}
+.gym-cal-day.empty{cursor:default;border-color:transparent}
+.gym-cal-day .gym-cal-num{
+  font-size:13px;font-variant-numeric:tabular-nums;color:var(--text)
+}
+.gym-cal-day.has{background:var(--accent-soft);border-color:rgba(201,126,74,.35)}
+.gym-cal-day.has .gym-cal-num{font-weight:600}
+.gym-cal-day.today{outline:1.5px solid var(--accent);outline-offset:-1.5px}
+.gym-cal-day.on{
+  background:var(--accent);color:#fff;border-color:var(--accent)
+}
+.gym-cal-day.on .gym-cal-num,
+.gym-cal-day.on .gym-cal-dot{color:#fff}
+.gym-cal-dot{
+  margin-top:3px;font-size:10px;font-weight:700;
+  color:var(--accent);background:rgba(255,255,255,.7);
+  padding:0 5px;border-radius:7px;line-height:14px;min-width:14px;text-align:center
+}
+.gym-cal-day.on .gym-cal-dot{background:rgba(255,255,255,.3)}
+.gym-cal-detail{margin-top:10px;padding-top:8px;border-top:1px dashed rgba(128,128,128,.25)}
+.gym-cal-detail .gym-checkin{background:rgba(255,255,255,.12)}
+
+
+/* ==== 开关（toggle）==== */
+.tog{width:40px;height:22px;border-radius:999px;background:rgba(128,128,128,.32);position:relative;cursor:pointer;border:none;padding:0;transition:background .2s;flex-shrink:0}
+.tog::before{content:'';position:absolute;left:3px;top:3px;width:16px;height:16px;background:#fff;border-radius:50%;transition:transform .2s}
+.tog.on{background:var(--accent)}
+.tog.on::before{transform:translateX(18px)}
+.hidden-row{display:flex;align-items:center;padding:10px 0;border-bottom:1px dashed rgba(128,128,128,.22)}
+.hidden-row:last-child{border-bottom:none}
 
 /* ==== 内容区 ==== */
 .main{
@@ -145,6 +264,11 @@ input:focus,textarea:focus,select:focus{outline:none;border-color:var(--accent)}
 .item .grow{flex:1;min-width:0;line-height:1.6}
 .item .del{color:var(--text-dim);font-size:16px;background:none;border:none;padding:0 4px;flex-shrink:0}
 .item .meta{font-size:var(--fs-meta);color:var(--text-dim);margin-top:2px}
+.item.mini-row{padding:6px 0;cursor:pointer}
+.item.mini-row:hover{background:rgba(0,0,0,.02)}
+.item.mini-row .box{width:16px;height:16px;border-width:1.5px;border-radius:4px}
+.item.mini-row .grow{font-size:13.5px;line-height:1.45}
+.done-all{color:var(--accent);font-weight:500;margin-top:8px;font-size:13.5px}
 .box{
   width:21px;height:21px;flex-shrink:0;margin-top:1px;
   border:2px solid var(--accent);border-radius:6px;
@@ -153,6 +277,9 @@ input:focus,textarea:focus,select:focus{outline:none;border-color:var(--accent)}
 }
 .item.done .box{background:var(--accent)}
 .item.done .grow{text-decoration:line-through;color:var(--text-dim)}
+.item.invalid{opacity:.62;background:repeating-linear-gradient(45deg,transparent 0 6px,rgba(201,126,74,.06) 6px 12px)}
+.item.invalid .grow b{color:#b6623b;text-decoration:line-through wavy currentColor}
+.item.invalid .badge{display:inline-block;margin-left:6px;padding:1px 6px;border-radius:8px;background:rgba(201,126,74,.18);color:#b6623b;font-size:10px;font-weight:500;letter-spacing:.04em}
 
 /* 进度条 */
 .bar{height:8px;background:rgba(0,0,0,.08);border-radius:4px;overflow:hidden;margin:10px 0 6px}
@@ -266,6 +393,10 @@ input:focus,textarea:focus,select:focus{outline:none;border-color:var(--accent)}
       <div class="logo" data-page-node-id="VTVK6ZxQPiOS9CbzMShQyx">🐚</div>
       <div class="name" data-page-node-id="8gwXgAwRfY5NYmlxtcMSlq">小贝壳记</div>
     </div>
+    <div id="editBar" class="edit-bar" hidden data-page-node-id="zTcbEPlHnrU3gR4lQ3vJ9o">
+      <span class="edit-hint">编辑中…</span>
+      <button class="edit-done" onclick="App.toggleEdit(false)" data-page-node-id="pKWd3UxYqzCgRl4nQzA8Ao">完成</button>
+    </div>
     <nav class="nav" id="nav" data-page-node-id="8kddcTEK6eow2zrHiiSUTi">
       <!-- 由 App.routes 自动渲染 -->
     </nav>
@@ -279,29 +410,13 @@ input:focus,textarea:focus,select:focus{outline:none;border-color:var(--accent)}
       <div class="page-title" data-page-node-id="feAl8tkgNx7t3hvogFFov0">🐚 今天</div>
       <div class="page-sub" id="todayDate" data-page-node-id="3RWR1cpTCSkGdHgK1Q3DuJ"></div>
 
-      <div class="card" data-page-node-id="SW9OFbpFPfv2pGrYu1RcfW">
-        <h2 data-page-node-id="WonqnxOMymKX22u7M6sNi3">💊 今日吃药</h2>
-        <div id="todayMed" data-page-node-id="gMMYTYfCtcPKRQkEWLGF17"></div>
+      <div id="todayEditBar" class="edit-page-bar" hidden data-page-node-id="B7DfZ0gP5tVeK4j3Q3vM9o">
+        <span>编辑模式 · 长按其他卡片可继续调序</span>
+        <button class="edit-done" onclick="Today.toggleEdit(false)" data-page-node-id="zNWd4VyYr4CgRm5oRzA9Bp">完成</button>
       </div>
 
-      <div class="card" data-page-node-id="n9LKGQm5wmoq92cMLg1JTJ">
-        <h2 data-page-node-id="Rs8hdL777Ll8GAxuKywgfJ">🏃 今日运动</h2>
-        <div class="row" id="todayGym" data-page-node-id="MAnfFU45rXt6LNPGDGvqzd"></div>
-      </div>
-
-      <div class="card" data-page-node-id="n38N9ceHIAD6AQQrE8Nk4o">
-        <h2 data-page-node-id="dmbSFCyQmiuSDKRtJvYZ2f">📅 今日待办</h2>
-        <div id="todayTodoSummary" data-page-node-id="DHr1unL18QcFoR6yjRCpfI"></div>
-      </div>
-
-      <div class="card" data-page-node-id="2fGZ4py4k56rLG0158P1oD">
-        <h2 data-page-node-id="sjKIjXFm7Z93jefEXoEkCS">💰 今日账目</h2>
-        <div id="todayMoneySummary" data-page-node-id="IzH4qozbM5E8y2w8EUYi1A"></div>
-      </div>
-
-      <div class="card" data-page-node-id="24XpdFa0fdUmLn06jA2jRV">
-        <h2 data-page-node-id="xf60MhsEmKqr8dIJwkqa67">📝 最近灵感</h2>
-        <div id="todayInbox" data-page-node-id="csnlkJFgEwdhAgDO8Jm0cs"></div>
+      <div id="todayCards" data-page-node-id="tCards">
+        <!-- 由 Today.cards 自动渲染 -->
       </div>
     </section>
     <!-- ==== 功能：仪表盘 END ==== -->
@@ -326,7 +441,7 @@ input:focus,textarea:focus,select:focus{outline:none;border-color:var(--accent)}
           <div id="medPlanList" data-page-node-id="d0aDFBTSHoiE8SW8UIrje3"></div>
           <div class="row" style="margin-top:14px" data-page-node-id="QFifWjUiMlqA6G2kc6QS6I">
             <input type="text" id="newMedName" placeholder="药品名，如：维生素 D" data-page-node-id="Q00bWgWRqKkvfKWmDlStXX">
-            <input type="text" id="newMedTimes" placeholder="时点，逗号分隔，如：07:00,22:00" style="max-width:160px" data-page-node-id="VgVkZB9fEynEKX2kF68aBq">
+            <input type="text" id="newMedTimes" placeholder="时点（HH:MM，逗号分隔），如：07:00,22:00" style="max-width:170px" data-page-node-id="VgVkZB9fEynEKX2kF68aBq">
             <button class="btn" onclick="Med.add()" data-page-node-id="Ntm3wNdcItCxySk0R4wghd">添加</button>
           </div>
         </div>
@@ -347,7 +462,12 @@ input:focus,textarea:focus,select:focus{outline:none;border-color:var(--accent)}
 
       <div class="card" data-page-node-id="4NqCNXWfhcBjrzcmSpj5aV">
         <h2 data-page-node-id="NICddftUIczbJiPTZ9EfWr">今日</h2>
-        <div class="row" id="gymTodayRow" data-page-node-id="92YgtfLI4Tqfjd9dsv8FB4"></div>
+        <div id="gymTodayRow" data-page-node-id="92YgtfLI4Tqfjd9dsv8FB4"></div>
+      </div>
+
+      <div class="card" data-page-node-id="gymCalCard">
+        <h2>📅 本月打卡日历</h2>
+        <div id="gymCalendar"></div>
       </div>
 
       <div class="card" data-page-node-id="NO7wdETQREQbP9fuAWEVV7">
@@ -454,7 +574,7 @@ input:focus,textarea:focus,select:focus{outline:none;border-color:var(--accent)}
           <input type="text" id="inboxText" placeholder="刚才脑子里闪过的念头……" onkeydown="if(event.key==='Enter')Inbox.add()" data-page-node-id="ePCxfVWoECoAGlgkxgUH1Y">
           <button class="btn" onclick="Inbox.add()" data-page-node-id="xBxzgEjNXzOVXFNGYAMDuT">记下</button>
         </div>
-        <p class="hint" style="margin:6px 0 0" data-page-node-id="5DRE7zmxgIiBVnm2qk3cUF">回车也能保存。可加标签，例如：<code style="background:rgba(0,0,0,.05);padding:1px 4px;border-radius:3px" data-page-node-id="5RcdU53Fig3Y1yO1L2615o">#雪停之前 #灵感</code></p>
+        <p class="hint" style="margin:6px 0 0" data-page-node-id="5DRE7zmxgIiBVnm2qk3cUF">回车也能保存。可加标签，例如：<code style="background:rgba(0,0,0,.05);padding:1px 4px;border-radius:3px" data-page-node-id="5RcdU53Fig3Y1yO1L2615o">#标签</code></p>
       </div>
 
       <div class="card wide" data-page-node-id="cAO7DgrXRGPCTLS3AEbRQh">
@@ -499,6 +619,30 @@ input:focus,textarea:focus,select:focus{outline:none;border-color:var(--accent)}
     <section class="page" id="page-settings" data-page-node-id="5MUS6BFQtVAxqkidBeVst6">
       <div class="page-title" data-page-node-id="LQnAAgSKBoXtGmF0CM8RkM">⚙️ 设置</div>
 
+      <div class="card" data-page-node-id="todayCard">
+        <h2 data-page-node-id="todayH2">📋 今日卡片</h2>
+        <div class="row" style="justify-content:space-between" data-page-node-id="todayRow">
+          <div style="flex:1;min-width:0">
+            <div style="font-size:14px">长按卡片调整顺序 / 隐藏</div>
+            <div class="hint" style="margin:4px 0 0">在「今天」页长按任意卡片 0.5 秒进入编辑模式；用 ↑↓ 调整顺序，用 × 隐藏。</div>
+          </div>
+          <button id="todayEditable" class="tog" onclick="Settings.toggleTodayEditable()" data-page-node-id="todayTog"></button>
+        </div>
+        <div id="todayHiddenList" style="margin-top:6px" data-page-node-id="todayHiddenList"></div>
+      </div>
+
+      <div class="card" data-page-node-id="navCard">
+        <h2 data-page-node-id="navH2">🧩 侧栏</h2>
+        <div class="row" style="justify-content:space-between" data-page-node-id="navRow">
+          <div style="flex:1;min-width:0">
+            <div style="font-size:14px">长按侧栏调整顺序 / 隐藏</div>
+            <div class="hint" style="margin:4px 0 0">长按任意图标 0.5 秒进入编辑模式；用 ↑↓ 调整顺序，用 × 隐藏；完成后点「完成」。</div>
+          </div>
+          <button id="navEditable" class="tog" onclick="Settings.toggleEditable()" data-page-node-id="navTog"></button>
+        </div>
+        <div id="hiddenList" style="margin-top:6px" data-page-node-id="hiddenList"></div>
+      </div>
+
       <div class="card" data-page-node-id="zSQoOGalCOJd7GiwrSAwDw">
         <h2 data-page-node-id="v6ONMyETBJFPpF1dHyhAdy">💾 数据备份</h2>
         <p class="hint" style="margin-top:0;margin-bottom:12px" data-page-node-id="RC0SYNXbPbf2JzS6Wfe9R7">
@@ -542,18 +686,46 @@ const Store = (() => {
   const SEC = 'bysdash$secret:';
   const TOMB_TTL = 30 * 864e5;
 
-  const driver = {
-    get(k){ try { return JSON.parse(localStorage.getItem(k)); } catch { return null; } },
-    set(k,v){
-      try { localStorage.setItem(k, JSON.stringify(v)); return true; }
-      catch(e){
-        UI.toast('存储空间满了，请到设置里导出备份后清理旧数据');
-        console.error(e); return false;
-      }
-    },
-    remove(k){ localStorage.removeItem(k); },
-    keys(){ return Object.keys(localStorage); }
-  };
+  // 内存降级存储：当 localStorage 被禁用（隐私模式/沙箱 iframe）时兜底，
+  // 保证页面功能可用（只是不跨会话持久化），不会因 SecurityError 崩掉
+  const _memStore = new Map();
+
+  const driver = (() => {
+    let ok = true;
+    try {
+      const probe = NS + '__probe__';
+      localStorage.setItem(probe, '1');
+      localStorage.removeItem(probe);
+    } catch(e){ ok = false; }
+
+    if (!ok) {
+      // 完全走内存
+      return {
+        get(k){ return _memStore.has(k) ? _memStore.get(k) : null; },
+        set(k, v){ _memStore.set(k, v); return true; },
+        remove(k){ _memStore.delete(k); },
+        keys(){ return [..._memStore.keys()]; }
+      };
+    }
+
+    return {
+      get(k){ try { return JSON.parse(localStorage.getItem(k)); } catch { return null; } },
+      set(k, v){
+        try { localStorage.setItem(k, JSON.stringify(v)); return true; }
+        catch(e){
+          // 空间满（QuotaExceededError）才提示；其他异常静默降级到内存
+          if (e && (e.name === 'QuotaExceededError' || e.code === 22 || e.code === 1014)) {
+            UI.toast('存储空间满了，请到设置里导出备份后清理旧数据');
+          } else {
+            _memStore.set(k, v);
+          }
+          console.error(e); return false;
+        }
+      },
+      remove(k){ try { localStorage.removeItem(k); } catch(e) { _memStore.delete(k); } },
+      keys(){ try { return Object.keys(localStorage); } catch { return [..._memStore.keys()]; } }
+    };
+  })();
 
   const now = () => Date.now();
 
@@ -611,6 +783,7 @@ const Store = (() => {
     },
     incr(key, n = 1){
       const raw = this.get(key, []);
+      if (!Array.isArray(raw)) { this.set(key, []); return this.incr(key, n); }
       for (let i = 0; i < n; i++) raw.push({ id: Util.uid(), _u: now() });
       this.set(key, raw);
       return this.count(key);
@@ -746,6 +919,19 @@ const Util = {
   uid(){ return Date.now().toString(36) + Math.random().toString(36).slice(2,7); },
   esc(s){ return String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); },
 
+  /** HH:MM → 分钟数（0-1439）。非法时点返回 99999，强制排到末尾 */
+  timeMins(t){
+    const m = /^(\d{1,2}):([0-5]\d)$/.exec(String(t ?? '').trim());
+    if (!m) return 99999;
+    const h = +m[1], mn = +m[2];
+    if (h < 0 || h > 23) return 99999;
+    return h * 60 + mn;
+  },
+  /** 是否合法 HH:MM（00-23 + 00-59） */
+  isValidTime(t){
+    return /^([01]\d|2[0-3]):[0-5]\d$/.test(String(t ?? '').trim());
+  },
+
   /** 取本月所有日期（含今天），倒序返回 */
   monthDays(){
     const now = new Date();
@@ -756,6 +942,33 @@ const Util = {
       days.push(ds);
     }
     return { y, m, days };
+  },
+
+  /** 完整月历（不限当前月）— y=年, m=1-12 */
+  daysOfMonth(y, m){
+    const lastDay = new Date(y, m, 0).getDate();
+    const days = [];
+    for (let d = 1; d <= lastDay; d++){
+      days.push(y + '-' + String(m).padStart(2,'0') + '-' + String(d).padStart(2,'0'));
+    }
+    const first = new Date(y, m - 1, 1);
+    const firstWeekday = (first.getDay() + 6) % 7;
+    return { y, m, days, firstWeekday };
+  },
+
+  /** 时间戳 → 'HH:MM' */
+  fmtTime(ts){
+    if (!ts) return '';
+    const d = new Date(ts);
+    return String(d.getHours()).padStart(2,'0') + ':' + String(d.getMinutes()).padStart(2,'0');
+  },
+
+  /** 'YYYY-MM-DD' → '9月6日 周日' */
+  fmtDateZh(s){
+    if (!s) return '';
+    const [y, m, d] = s.split('-').map(Number);
+    const dow = ['日','一','二','三','四','五','六'][new Date(y, m - 1, d).getDay()];
+    return `${m}月${d}日 周${dow}`;
   },
 
   /** 提取文本中的 #tag,存进数组 */
@@ -790,7 +1003,7 @@ const UI = {
    ═══════════════════════════════════════════════════════════ */
 const App = {
   routes: [
-    { id:'today',     icon:'🐚', name:'今天',  onShow: () => Today.render()     },
+    { id:'today',     icon:'🐚', name:'今天',  fixed:'first', onShow: () => Today.render()     },
     { id:'med',       icon:'💊', name:'吃药',  onShow: () => Med.render()       },
     { id:'gym',       icon:'🏃', name:'运动',  onShow: () => Gym.render()       },
     { id:'projects',  icon:'🎬', name:'项目',  onShow: () => Projects.render()  },
@@ -799,10 +1012,145 @@ const App = {
     { id:'inbox',     icon:'💡', name:'灵感',  onShow: () => Inbox.render()     },
     { id:'notes',     icon:'📝', name:'笔记',  onShow: () => Notes.render()     },
     { id:'recap',     icon:'🌙', name:'复盘',  onShow: () => Recap.render()     },
-    { id:'settings',  icon:'⚙️', name:'设置',  onShow: () => Settings.render()  }
+    { id:'settings',  icon:'⚙️', name:'设置',  fixed:'last',  onShow: () => Settings.render()  }
   ],
 
+  _editMode:false,
+
+  /* ── 顺序与可见性 ── */
+  visibleRoutes(){
+    const order  = Store.get('_navOrder', null);
+    const hidden = new Set(Store.get('_navHidden', []));
+    const firsts = this.routes.filter(r => r.fixed === 'first');
+    const mids   = this.routes.filter(r => !r.fixed && !hidden.has(r.id));
+    const lasts  = this.routes.filter(r => r.fixed === 'last');
+    if (Array.isArray(order) && order.length){
+      const map = new Map(mids.map(r => [r.id, r]));
+      const sorted = [];
+      for (const id of order){
+        const r = map.get(id);
+        if (r && !sorted.includes(r)){ sorted.push(r); map.delete(id); }
+      }
+      return [...firsts, ...sorted, ...map.values(), ...lasts];
+    }
+    return [...firsts, ...mids, ...lasts];
+  },
+
+  renderNav(){
+    const editable = Store.get('_navEditable', true);
+    const edit     = this._editMode && editable;
+
+    const bar = document.getElementById('editBar');
+    if (bar) bar.hidden = !edit;
+
+    const visible = this.visibleRoutes();
+    const html = visible.map(r => {
+      let tools = '';
+      if (edit){
+        if (r.fixed){
+          tools = `<div class="edit-tool"><span class="ed-pin" title="固定项不可调整">📌</span></div>`;
+        } else {
+          tools = `<div class="edit-tool">
+            <span class="ed-up"   onclick="event.stopPropagation();App.move('${r.id}',-1)"  title="上移">↑</span>
+            <span class="ed-down" onclick="event.stopPropagation();App.move('${r.id}', 1)" title="下移">↓</span>
+            <span class="ed-del"  onclick="event.stopPropagation();App.hide('${r.id}')"     title="隐藏">×</span>
+          </div>`;
+        }
+      }
+      const cls = edit ? ' editing' : '';
+      const pinAttr = r.fixed ? ' data-pin="1"' : '';
+      const oc = edit
+        ? (r.fixed ? `App.toggleEdit(false)` : `void(0)`)
+        : `App.go('${r.id}')`;
+      return `<button data-id="${r.id}"${pinAttr} class="navbtn${cls}"
+        onpointerdown="App.onPress(event, '${r.id}')"
+        oncontextmenu="event.preventDefault()"
+        onclick="${oc}">
+        <span class="ico">${r.icon}</span>${r.name}${tools}
+      </button>`;
+    }).join('');
+    document.getElementById('nav').innerHTML = html;
+
+    // 把当前页的高亮同步上去
+    const cur = (Store.get('_lastPage') || 'today');
+    if (visible.some(r => r.id === cur)){
+      document.querySelectorAll('#nav button').forEach(b =>
+        b.classList.toggle('on', b.dataset.id === cur));
+    }
+  },
+
+  toggleEdit(force){
+    if (!Store.get('_navEditable', true) && force !== false) return;
+    const next = force === undefined ? !this._editMode : !!force;
+    if (next === this._editMode) return;
+    this._editMode = next;
+    this.renderNav();
+    if (next) UI.toast('编辑模式：↑↓ 调整顺序，× 隐藏功能');
+  },
+
+  /* ── 长按 0.5s 触发 ── */
+  onPress(e, id){
+    if (!Store.get('_navEditable', true)) return;
+    if (this._editMode) return;
+    if (e.button !== 0 && e.pointerType === 'mouse') return;
+    const el = e.currentTarget;
+    const x0 = e.clientX, y0 = e.clientY;
+    const t = setTimeout(() => {
+      if (navigator.vibrate) try { navigator.vibrate(20); } catch {}
+      this.toggleEdit(true);
+    }, 500);
+    const off = () => {
+      clearTimeout(t);
+      el._pt = null;
+      el.removeEventListener('pointerup',     off);
+      el.removeEventListener('pointermove',   mv);
+      el.removeEventListener('pointercancel', off);
+      el.removeEventListener('pointerleave',  off);
+    };
+    const mv = (ev) => {
+      if (Math.abs(ev.clientX - x0) > 8 || Math.abs(ev.clientY - y0) > 8) off();
+    };
+    el._pt = t;
+    el.addEventListener('pointerup',     off);
+    el.addEventListener('pointermove',   mv);
+    el.addEventListener('pointercancel', off);
+    el.addEventListener('pointerleave',  off);
+  },
+
+  move(id, dir){
+    const rs  = this.visibleRoutes().filter(r => !r.fixed);
+    const i   = rs.findIndex(r => r.id === id);
+    if (i < 0) return;
+    const j   = i + dir;
+    if (j < 0 || j >= rs.length) return;
+    [rs[i], rs[j]] = [rs[j], rs[i]];
+    Store.set('_navOrder', rs.map(r => r.id));
+    this.renderNav();
+  },
+
+  hide(id){
+    const arr = Store.get('_navHidden', []);
+    if (!arr.includes(id)) arr.push(id);
+    Store.set('_navHidden', arr);
+    UI.toast('已隐藏，下滑在「设置 → 侧栏」恢复');
+    // 若当前页被隐藏，跳回第一个可见页
+    if (Store.get('_lastPage') === id){
+      const v = this.visibleRoutes();
+      this.go(v[0] ? v[0].id : 'today');
+    }
+    this.renderNav();
+    if (typeof Settings !== 'undefined') Settings.renderHiddenList?.();
+  },
+
+  restore(id){
+    Store.set('_navHidden', Store.get('_navHidden', []).filter(x => x !== id));
+    this.renderNav();
+    if (typeof Settings !== 'undefined') Settings.renderHiddenList?.();
+  },
+
   go(id){
+    const visible = this.visibleRoutes();
+    if (!visible.some(r => r.id === id)) id = visible[0]?.id || 'today';
     document.querySelectorAll('.page').forEach(p => p.classList.remove('on'));
     document.getElementById('page-' + id)?.classList.add('on');
     document.querySelectorAll('#nav button').forEach(b =>
@@ -814,13 +1162,11 @@ const App = {
 
   init(){
     Store.migrate();
-    document.getElementById('nav').innerHTML = this.routes.map(r =>
-      `<button data-id="${r.id}" onclick="App.go('${r.id}')">
-         <span class="ico">${r.icon}</span>${r.name}
-       </button>`).join('');
-
+    this.renderNav();
     const last = Store.get('_lastPage');
-    this.go(this.routes.some(r => r.id === last) ? last : this.routes[0].id);
+    const visible = this.visibleRoutes();
+    const ok = visible.some(r => r.id === last);
+    this.go(ok ? last : visible[0].id);
     this.checkBackup();
   },
 
@@ -852,6 +1198,10 @@ const App = {
 const Settings = {
   render(){
     this.refreshBackupInfo();
+    this.refreshEditableTog();
+    this.refreshTodayEditableTog();
+    this.renderHiddenList();
+    this.renderTodayHiddenList();
   },
   refreshBackupInfo(){
     const last = Store.get('_lastBackup');
@@ -859,6 +1209,63 @@ const Settings = {
     if (el) el.textContent = last
       ? '上次备份：' + new Date(last).toLocaleDateString('zh-CN')
       : '还没备份过';
+  },
+  refreshEditableTog(){
+    const el = document.getElementById('navEditable');
+    if (el) el.classList.toggle('on', !!Store.get('_navEditable', true));
+  },
+  toggleEditable(){
+    const next = !Store.get('_navEditable', true);
+    Store.set('_navEditable', next);
+    this.refreshEditableTog();
+    if (!next && App._editMode) App.toggleEdit(false);
+    UI.toast(next ? '已开启长按编辑' : '已关闭长按编辑');
+  },
+  renderHiddenList(){
+    const wrap = document.getElementById('hiddenList');
+    if (!wrap) return;
+    const hidden = Store.get('_navHidden', []);
+    const rs = App.routes.filter(r => r.fixed !== 'first' && r.fixed !== 'last' && hidden.includes(r.id));
+    if (!rs.length){
+      wrap.innerHTML = '<p class="hint" style="margin:14px 0 0">没有隐藏的功能。</p>';
+      return;
+    }
+    wrap.innerHTML =
+      '<p class="hint" style="margin:18px 0 6px;font-size:12px;letter-spacing:.05em">— 已隐藏（点恢复）—</p>' +
+      rs.map(r => `
+        <div class="hidden-row">
+          <span class="ico" style="font-size:20px;display:inline-block;width:28px;text-align:center">${r.icon}</span>
+          <span style="flex:1;margin-left:6px;font-size:14px">${r.name}</span>
+          <button class="btn ghost" style="padding:5px 12px;font-size:12px" onclick="App.restore('${r.id}');Settings.renderHiddenList()">恢复</button>
+        </div>`).join('');
+  },
+  refreshTodayEditableTog(){
+    const el = document.getElementById('todayEditable');
+    if (el) el.classList.toggle('on', !!Store.get('_todayEditable', true));
+  },
+  toggleTodayEditable(){
+    const next = !Store.get('_todayEditable', true);
+    Store.set('_todayEditable', next);
+    this.refreshTodayEditableTog();
+    if (!next && Today._editMode) Today.toggleEdit(false);
+    UI.toast(next ? '已开启长按编辑卡片' : '已关闭长按编辑卡片');
+  },
+  renderTodayHiddenList(){
+    const wrap = document.getElementById('todayHiddenList');
+    if (!wrap) return;
+    const hidden = Store.get('_todayHidden', []);
+    const list = Today.cards.filter(c => hidden.includes(c.id));
+    if (!list.length){
+      wrap.innerHTML = '<p class="hint" style="margin:14px 0 0">没有隐藏的卡片。</p>';
+      return;
+    }
+    wrap.innerHTML =
+      '<p class="hint" style="margin:18px 0 6px;font-size:12px;letter-spacing:.05em">— 已隐藏（点恢复）—</p>' +
+      list.map(c => `
+        <div class="hidden-row">
+          <span style="flex:1;font-size:14px">${c.title}</span>
+          <button class="btn ghost" style="padding:5px 12px;font-size:12px" onclick="Today.restore('${c.id}');Settings.renderTodayHiddenList()">恢复</button>
+        </div>`).join('');
   }
 };
 
@@ -867,49 +1274,208 @@ const Settings = {
    Today · 仪表盘（首页）
    ═══════════════════════════════════════════════════════════ */
 const Today = {
-  render(){
-    document.getElementById('todayDate').textContent = new Date().toLocaleDateString('zh-CN', { month:'long', day:'numeric', weekday:'long' });
+  _editMode:false,
 
-    // 吃药
+  cards: [
+    { id:'med',   title:'💊 今日吃药', render(){ Today._renderMed();   } },
+    { id:'gym',   title:'🏃 今日运动', render(){ Today._renderGym();   } },
+    { id:'todo',  title:'📅 今日待办', render(){ Today._renderTodo();  } },
+    { id:'money', title:'💰 今日账目', render(){ Today._renderMoney(); } },
+    { id:'inbox', title:'📝 最近灵感', render(){ Today._renderInbox(); } }
+  ],
+
+  visibleCards(){
+    const order  = Store.get('_todayOrder', null);
+    const hidden = new Set(Store.get('_todayHidden', []));
+    const list   = this.cards.filter(c => !hidden.has(c.id));
+    if (Array.isArray(order) && order.length){
+      const map = new Map(list.map(c => [c.id, c]));
+      const sorted = [];
+      for (const id of order){
+        const c = map.get(id);
+        if (c && !sorted.includes(c)){ sorted.push(c); map.delete(id); }
+      }
+      return [...sorted, ...map.values()];
+    }
+    return list;
+  },
+
+  render(){
+    document.getElementById('todayDate').textContent =
+      new Date().toLocaleDateString('zh-CN', { month:'long', day:'numeric', weekday:'long' });
+
+    const wrap = document.getElementById('todayCards');
+    if (!wrap) return;
+
+    const editable = Store.get('_todayEditable', true);
+    const edit = this._editMode && editable;
+
+    const bar = document.getElementById('todayEditBar');
+    if (bar) bar.hidden = !edit;
+
+    const list = this.visibleCards();
+    wrap.innerHTML = list.map(c => {
+      const tools = edit
+        ? `<div class="card-tools">
+             <span onclick="event.stopPropagation();Today.move('${c.id}',-1)" title="上移">↑</span>
+             <span onclick="event.stopPropagation();Today.move('${c.id}', 1)" title="下移">↓</span>
+             <span onclick="event.stopPropagation();Today.hide('${c.id}')"     title="隐藏">× 隐藏</span>
+             <span class="card-tools-done" onclick="event.stopPropagation();Today.toggleEdit(false)" title="完成编辑">✓ 完成</span>
+           </div>`
+        : '';
+      const cls = edit ? ' tcard card-editing' : ' tcard';
+      return `<div class="card${cls}" data-card="${c.id}"
+        onpointerdown="Today.onPress(event,'${c.id}')"
+        oncontextmenu="event.preventDefault()">
+        <h2>${c.title}</h2>
+        <div id="tc-${c.id}"></div>
+        ${tools}
+      </div>`;
+    }).join('');
+
+    // 渲染每张卡片的内容
+    list.forEach(c => c.render());
+  },
+
+  _renderMed(){
     const plan = Store.get('med_plan', []);
-    const today = Util.today();
     const takenIds = Store.getDaily('med_taken', []).map(x => x.id);
     const items = [];
-    plan.forEach(p => (p.times || []).forEach(t => items.push({ pid:p.id, name:p.name, time:t, taken: takenIds.includes(p.id + '@' + t) })));
-    const medEl = document.getElementById('todayMed');
-    medEl.innerHTML = items.length ? items.map((x,i) => {
-      const id = x.pid + '@' + x.time;
-      return `<div class="item ${x.taken?'done':''}"><span class="box">${x.taken?'✓':''}</span>
-        <span class="grow"><b>${x.time}</b> · ${Util.esc(x.name)}</span></div>`;
+    plan.forEach(p => (p.times || []).forEach(t =>
+      items.push({ pid:p.id, name:p.name, time:t, taken: takenIds.includes(p.id + '@' + t) })));
+    items.sort((a, b) => Util.timeMins(a.time) - Util.timeMins(b.time));
+    const el = document.getElementById('tc-med');
+    if (!el) return;
+    el.innerHTML = items.length ? items.map(x => {
+      const valid = Util.isValidTime(x.time);
+      return `<div class="item mini-row ${x.taken?'done':''}" onclick="${valid?`Med.toggle('${Util.esc(x.pid)}','${Util.esc(x.time)}');Today._renderMed()`:''}">
+        <span class="box">${x.taken?'✓':''}</span>
+        <span class="grow"><b style="font-variant-numeric:tabular-nums">${x.time}</b> · ${Util.esc(x.name)}</span>
+      </div>`;
     }).join('') : '<div class="empty">还没设置吃药计划，去 <a href="javascript:App.go(\'med\')">吃药页</a> 添加</div>';
+  },
 
-    // 运动
-    const gymed = Store.countDaily('gym_done') > 0;
-    document.getElementById('todayGym').innerHTML = `
-      <button class="btn ${gymed?'ghost':''}" onclick="Gym.toggleToday()">${gymed?'✓ 今天已打卡':'打卡今天'}</button>
-      <span class="hint" style="margin-left:auto">${gymed?'已记录':'还没打卡'}</span>`;
+  _renderGym(){
+    const list = Gym._list(Util.today());
+    const n = list.length;
+    const latest = list[list.length - 1];
+    const note = latest && latest.note ? latest.note : '';
+    const el = document.getElementById('tc-gym');
+    if (!el) return;
+    el.innerHTML = `<div class="row">
+      <button class="btn ${n>0?'ghost':''}" onclick="Gym.addToday()">${n>0?'✓ 再打卡一次':'打卡今天'}</button>
+      <span class="hint" style="margin-left:auto">${n>0?`今日已运动 <b>${n}</b> 次${note?' · '+Util.esc(note):''}`:'还没打卡'}</span>
+    </div>`;
+  },
 
-    // 待办
+  _renderTodo(){
     const todos = Store.getDaily('todo_items', []);
     const doneCount = todos.filter(t => t.done).length;
-    document.getElementById('todayTodoSummary').innerHTML = todos.length
-      ? `<div class="summary"><span class="n">${doneCount}/${todos.length}</span><span class="l">已完成</span></div>
-         <div class="hint" style="margin-top:6px">打开 <a href="javascript:App.go('todo')">日程</a> 添加更多</div>`
-      : `<div class="empty">今天还没列待办，去 <a href="javascript:App.go('todo')">日程页</a></div>`;
+    const pending = todos.filter(t => !t.done);
+    const el = document.getElementById('tc-todo');
+    if (!el) return;
+    if (!todos.length) {
+      el.innerHTML = `<div class="empty">今天还没列待办，去 <a href="javascript:App.go('todo')">日程页</a></div>`;
+      return;
+    }
+    const MAX = 5;
+    const show = pending.slice(0, MAX);
+    const more = pending.length - show.length;
+    el.innerHTML =
+      `<div class="summary"><span class="n">${doneCount}/${todos.length}</span><span class="l">已完成</span></div>`
+      + (pending.length
+          ? `${show.map(t => `
+        <div class="item mini-row" onclick="Todo.toggle('${t.id}');Today._renderTodo()">
+          <span class="box"></span>
+          <span class="grow">${Util.esc(t.text)}</span>
+        </div>`).join('')}
+        ${more > 0 ? `<div class="hint" style="margin-top:2px">还有 ${more} 条未完成 · <a href="javascript:App.go('todo')">查看</a></div>` : ''}`
+          : `<div class="hint done-all">✨ 全部搞定</div>`)
+      + `<div class="hint" style="margin-top:6px">打开 <a href="javascript:App.go('todo')">日程</a> 添加更多</div>`;
+  },
 
-    // 账目
+  _renderMoney(){
     const monthMoney = Money._monthTotal();
     const todayCount = Store.list('money').filter(m => m.date === Util.today()).length;
-    document.getElementById('todayMoneySummary').innerHTML =
+    const el = document.getElementById('tc-money');
+    if (!el) return;
+    el.innerHTML =
       `<div class="summary"><span class="n">¥${monthMoney.toFixed(0)}</span><span class="l">本月净收入（收入−支出）</span></div>
        <div class="hint" style="margin-top:6px">今天记了 ${todayCount} 笔 · 去 <a href="javascript:App.go('money')">账目</a></div>`;
+  },
 
-    // 灵感
+  _renderInbox(){
     const recent = Store.list('inbox', (a,b) => (b._u||0) - (a._u||0)).slice(0, 3);
-    document.getElementById('todayInbox').innerHTML = recent.length
+    const el = document.getElementById('tc-inbox');
+    if (!el) return;
+    el.innerHTML = recent.length
       ? recent.map(x => `<div class="item"><span class="grow">${Util.esc(x.text)}</span><span class="meta">${Util.dateOf(new Date(x._u))}</span></div>`).join('')
         + `<div class="hint"><a href="javascript:App.go('inbox')">查看全部灵感 →</a></div>`
       : `<div class="empty">还没有灵感，<a href="javascript:App.go('inbox')">记一条试试</a></div>`;
+  },
+
+  /* ── 编辑模式 ── */
+  toggleEdit(force){
+    if (!Store.get('_todayEditable', true) && force !== false) return;
+    const next = force === undefined ? !this._editMode : !!force;
+    if (next === this._editMode) return;
+    this._editMode = next;
+    this.render();
+    if (next) UI.toast('编辑模式：↑↓ 调顺序，× 隐藏卡片');
+  },
+
+  onPress(e, id){
+    if (!Store.get('_todayEditable', true)) return;
+    if (this._editMode) return;
+    if (e.button !== 0 && e.pointerType === 'mouse') return;
+    const el = e.currentTarget;
+    const x0 = e.clientX, y0 = e.clientY;
+    const t = setTimeout(() => {
+      if (navigator.vibrate) try { navigator.vibrate(20); } catch {}
+      this.toggleEdit(true);
+    }, 500);
+    const off = () => {
+      clearTimeout(t);
+      el._pt = null;
+      el.removeEventListener('pointerup',     off);
+      el.removeEventListener('pointermove',   mv);
+      el.removeEventListener('pointercancel', off);
+      el.removeEventListener('pointerleave',  off);
+    };
+    const mv = (ev) => {
+      if (Math.abs(ev.clientX - x0) > 8 || Math.abs(ev.clientY - y0) > 8) off();
+    };
+    el._pt = t;
+    el.addEventListener('pointerup',     off);
+    el.addEventListener('pointermove',   mv);
+    el.addEventListener('pointercancel', off);
+    el.addEventListener('pointerleave',  off);
+  },
+
+  move(id, dir){
+    const cs = this.visibleCards();
+    const i  = cs.findIndex(c => c.id === id);
+    if (i < 0) return;
+    const j = i + dir;
+    if (j < 0 || j >= cs.length) return;
+    [cs[i], cs[j]] = [cs[j], cs[i]];
+    Store.set('_todayOrder', cs.map(c => c.id));
+    this.render();
+  },
+
+  hide(id){
+    const arr = Store.get('_todayHidden', []);
+    if (!arr.includes(id)) arr.push(id);
+    Store.set('_todayHidden', arr);
+    UI.toast('已隐藏，去「设置 → 今日卡片」恢复');
+    this.render();
+    if (typeof Settings !== 'undefined') Settings.renderTodayHiddenList?.();
+  },
+
+  restore(id){
+    Store.set('_todayHidden', Store.get('_todayHidden', []).filter(x => x !== id));
+    this.render();
+    if (typeof Settings !== 'undefined') Settings.renderTodayHiddenList?.();
   }
 };
 
@@ -918,6 +1484,8 @@ const Today = {
    Med · 吃药打卡
    ═══════════════════════════════════════════════════════════ */
 const Med = {
+  _editing: null,
+
   render(){
     document.getElementById('medDate').textContent = new Date().toLocaleDateString('zh-CN', { month:'long', day:'numeric' });
 
@@ -927,25 +1495,46 @@ const Med = {
     const items = [];
     plan.forEach(p => (p.times || []).forEach(t => items.push({ pid:p.id, name:p.name, time:t, taken: takenSet.has(p.id + '@' + t) })));
 
-    items.sort((a,b) => a.time.localeCompare(b.time));
+    items.sort((a,b) => Util.timeMins(a.time) - Util.timeMins(b.time));
     document.getElementById('medList').innerHTML = items.length ? items.map(x => {
       const id = x.pid + '@' + x.time;
       const checked = x.taken;
-      return `<div class="item ${checked?'done':''}" onclick="Med.toggle('${Util.esc(x.pid)}','${Util.esc(x.time)}', this)">
+      const valid = Util.isValidTime(x.time);
+      const cls = `${checked?'done':''} ${valid?'':'invalid'}`.trim();
+      const badge = valid ? '' : '<span class="badge">⚠ 时点格式异常，长按下方计划修改</span>';
+      return `<div class="item ${cls}" onclick="Med.toggle('${Util.esc(x.pid)}','${Util.esc(x.time)}', this)">
         <span class="box">${checked?'✓':''}</span>
-        <span class="grow"><b style="font-variant-numeric:tabular-nums">${x.time}</b> · ${Util.esc(x.name)}</span>
+        <span class="grow"><b style="font-variant-numeric:tabular-nums">${Util.esc(x.time)}</b> · ${Util.esc(x.name)}${badge}</span>
       </div>`;
     }).join('') : '<div class="empty">还没有吃药计划，下方添加</div>';
 
-    // plan 列表
-    document.getElementById('medPlanList').innerHTML = plan.length ? plan.map(p => `
-      <div class="item">
+    // plan 列表：按最早时点升序（数值比较，非法时点排末尾）；当前编辑项转成输入框
+    const sortedPlan = [...plan].sort((a, b) => {
+      const ta = Util.timeMins((a.times || [])[0]);
+      const tb = Util.timeMins((b.times || [])[0]);
+      return ta - tb;
+    });
+    document.getElementById('medPlanList').innerHTML = sortedPlan.length ? sortedPlan.map(p => {
+      if (this._editing === p.id){
+        return `<div class="item editing">
+          <input class="ip" id="med-edit-name-${p.id}" value="${Util.esc(p.name)}" placeholder="药品名">
+          <input class="ip ip-times" id="med-edit-times-${p.id}" value="${(p.times||[]).join(',')}" placeholder="07:00,22:00">
+          <span class="ip-actions">
+            <button class="btn" onclick="Med.save('${p.id}')">保存</button>
+            <button class="btn ghost" onclick="Med.cancelEdit()">取消</button>
+          </span>
+        </div>`;
+      }
+      return `<div class="item"
+        onpointerdown="Med.onPress(event,'${p.id}')"
+        oncontextmenu="event.preventDefault()">
         <div class="grow">
           <b>${Util.esc(p.name)}</b>
           <div class="meta">${(p.times||[]).map(Util.esc).join(' · ')}</div>
         </div>
         <button class="del" onclick="Med.del('${p.id}')">✕</button>
-      </div>`).join('') : '<div class="empty">还没有计划</div>';
+      </div>`;
+    }).join('') : '<div class="empty">还没有计划</div>';
   },
 
   toggle(pid, time, el){
@@ -955,7 +1544,10 @@ const Med = {
     if (idx >= 0) taken.splice(idx, 1);
     else taken.push({ id: key });
     Store.setDaily('med_taken', taken);
-    if (typeof Recap !== 'undefined') Store.incrDaily('recap_done', idx >= 0 ? -1 : 1);
+    if (typeof Recap !== 'undefined'){
+      if (idx >= 0) Store.decrDaily('recap_done');
+      else Store.incrDaily('recap_done');
+    }
     this.render();
   },
 
@@ -964,19 +1556,81 @@ const Med = {
     const timesStr = document.getElementById('newMedTimes').value.trim();
     if (!name) return UI.toast('先填药品名');
     const times = timesStr.split(/[,，\s]+/).filter(Boolean);
-    if (!times.length) return UI.toast('至少一个时点，逗号分隔');
+    if (!times.length) return UI.toast('至少一个时点（HH:MM），逗号分隔');
+    for (const t of times){
+      if (!Util.isValidTime(t)) return UI.toast('时点格式错误（HH:MM）：' + t);
+    }
+    times.sort((a, b) => Util.timeMins(a) - Util.timeMins(b));
     const plan = Store.get('med_plan', []);
     plan.push({ id: Util.uid(), name, times });
     Store.set('med_plan', plan);
     document.getElementById('newMedName').value = '';
     document.getElementById('newMedTimes').value = '';
-    UI.toast('已添加');
+    UI.toast('已添加：' + name);
     this.render();
   },
 
   del(pid){
     const plan = Store.get('med_plan', []).filter(p => p.id !== pid);
     Store.set('med_plan', plan);
+    if (this._editing === pid) this._editing = null;
+    this.render();
+  },
+
+  /* ── 编辑模式 ── */
+  onPress(e, id){
+    if (this._editing === id) return;
+    if (e.button !== 0 && e.pointerType === 'mouse') return;
+    const el = e.currentTarget;
+    const x0 = e.clientX, y0 = e.clientY;
+    const t = setTimeout(() => {
+      if (navigator.vibrate) try { navigator.vibrate(20); } catch {}
+      this._editing = id;
+      this.render();
+      // 自动聚焦药品名输入框
+      const ip = document.getElementById('med-edit-name-' + id);
+      if (ip){ ip.focus(); ip.select(); }
+    }, 500);
+    const off = () => {
+      clearTimeout(t);
+      el._pt = null;
+      el.removeEventListener('pointerup',     off);
+      el.removeEventListener('pointermove',   mv);
+      el.removeEventListener('pointercancel', off);
+      el.removeEventListener('pointerleave',  off);
+    };
+    const mv = (ev) => {
+      if (Math.abs(ev.clientX - x0) > 8 || Math.abs(ev.clientY - y0) > 8) off();
+    };
+    el._pt = t;
+    el.addEventListener('pointerup',     off);
+    el.addEventListener('pointermove',   mv);
+    el.addEventListener('pointercancel', off);
+    el.addEventListener('pointerleave',  off);
+  },
+
+  save(pid){
+    const nameEl  = document.getElementById('med-edit-name-' + pid);
+    const timesEl = document.getElementById('med-edit-times-' + pid);
+    if (!nameEl || !timesEl) return;
+    const name = nameEl.value.trim();
+    const timesStr = timesEl.value.trim();
+    if (!name) return UI.toast('药品名不能为空');
+    const times = timesStr.split(/[,，\s]+/).filter(Boolean);
+    if (!times.length) return UI.toast('至少一个时点');
+    for (const t of times){
+      if (!/^([01]\d|2[0-3]):[0-5]\d$/.test(t)) return UI.toast('时点格式错误（HH:MM）：' + t);
+    }
+    const plan = Store.get('med_plan', []).map(p =>
+      p.id === pid ? Object.assign({}, p, { name, times }) : p);
+    Store.set('med_plan', plan);
+    this._editing = null;
+    UI.toast('已保存');
+    this.render();
+  },
+
+  cancelEdit(){
+    this._editing = null;
     this.render();
   }
 };
@@ -986,13 +1640,31 @@ const Med = {
    Gym · 运动打卡（含体重曲线）
    ═══════════════════════════════════════════════════════════ */
 const Gym = {
+  // 日历偏移：-1=上月 / 0=本月 / +1=下月
+  _calMonthOffset: 0,
+  _calSelected: null,
+
+  // 读某天的打卡记录（旧 incr 存的是 {id, _u}，自动补 ts/note）
+  _list(date){
+    return Store.list('gym_done:' + date).map(r => ({
+      id: r.id || Util.uid(),
+      ts: r.ts || (r._u ? r._u * 1000 : Date.now()),
+      note: r.note || ''
+    }));
+  },
+
+  _write(date, list){
+    const data = list.map(r => ({ id: r.id, ts: r.ts, note: r.note, _u: Math.floor((r.ts || Date.now()) / 1000) }));
+    Store.set('gym_done:' + date, data);
+  },
+
   render(){
     const goal = Store.get('gym_goal', 25);
 
-    // 本月已运动天数：用 daily 计数器逐日统计
+    // 本月已运动天数
     const md = Util.monthDays();
     let count = 0;
-    md.days.forEach(d => { if (Store.count('gym_done:' + d) > 0) count++; });
+    md.days.forEach(d => { if (Store.list('gym_done:' + d).length > 0) count++; });
 
     document.getElementById('gymMonthCount').textContent = count;
     document.getElementById('gymMonthGoal').textContent = goal;
@@ -1002,10 +1674,22 @@ const Gym = {
       : `还差 ${Math.max(0, goal - count)} 天`;
     document.getElementById('gymGoalInput').value = goal;
 
-    const done = Store.countDaily('gym_done') > 0;
-    document.getElementById('gymTodayRow').innerHTML = `
-      <button class="btn ${done?'ghost':''}" onclick="Gym.toggleToday()">${done?'✓ 今天已打卡':'打卡今天'}</button>
-      <span class="hint" style="margin-left:auto">${done?'已记录':'还没打卡'}</span>`;
+    // 今日打卡区
+    const today = Util.today();
+    const todayList = this._list(today);
+    const todayCount = todayList.length;
+    const todayEl = document.getElementById('gymTodayRow');
+    todayEl.innerHTML = `
+      <div class="row" style="width:100%;margin-bottom:${todayCount?8:0}px">
+        <button class="btn ${todayCount?'ghost':''}" onclick="Gym.addToday()">${todayCount?'✓ 再打卡一次':'打卡今天'}</button>
+        <button class="btn ghost" onclick="Gym.undoToday()" ${todayCount?'':'disabled'} style="margin-left:6px">撤销 1 次</button>
+        <span class="hint" style="margin-left:auto">${todayCount?`今日已运动 ${todayCount} 次`:'还没打卡'}</span>
+      </div>
+      <div id="gymTodayList">${this._renderCheckinList(todayList, today, true)}</div>
+    `;
+
+    // 月历
+    this._renderCalendar();
 
     // 体重
     const weights = Store.list('weight_log', (a,b) => new Date(a.date) - new Date(b.date));
@@ -1015,15 +1699,123 @@ const Gym = {
     this.drawWeightChart(weights);
   },
 
-  toggleToday(){
-    if (Store.countDaily('gym_done') > 0) {
-      Store.decrDaily('gym_done');
-      Store.incrDaily('recap_done', -1);
-    } else {
-      Store.incrDaily('gym_done');
-      Store.incrDaily('recap_done');
-    }
+  _renderCheckinList(list, date, withDelete){
+    if (!list.length) return '';
+    return '<div class="gym-checkins">' + list.slice().reverse().map((r, i) => {
+      const actualIdx = list.length - 1 - i;
+      return `<div class="gym-checkin">
+        <span class="gym-checkin-time">${Util.fmtTime(r.ts)}</span>
+        <input class="gym-note" placeholder="点添加备注（项目/强度/时长…）" value="${Util.esc(r.note||'')}"
+               onblur="Gym.setNote('${date}', ${actualIdx}, this.value)"
+               onkeydown="if(event.key==='Enter')this.blur()">
+        ${withDelete ? `<button class="del" onclick="Gym.delCheckin('${date}', ${actualIdx})" title="删除这条">✕</button>` : ''}
+      </div>`;
+    }).join('') + '</div>';
+  },
+
+  _renderCalendar(){
+    const el = document.getElementById('gymCalendar');
+    if (!el) return;
+    const base = new Date();
+    base.setDate(1);
+    base.setMonth(base.getMonth() + this._calMonthOffset);
+    const y = base.getFullYear(), m = base.getMonth() + 1;
+    const md = Util.daysOfMonth(y, m);
+    const today = Util.today();
+    const canNext = this._calMonthOffset < 0;
+
+    let html = `
+      <div class="gym-cal">
+        <div class="gym-cal-head">
+          <button class="btn ghost" onclick="Gym.calPrev()">‹ 上月</button>
+          <span class="gym-cal-title">${y} 年 ${m} 月</span>
+          <button class="btn ghost" onclick="Gym.calNext()" ${canNext?'':'disabled'}>下月 ›</button>
+        </div>
+        <div class="gym-cal-weekrow">
+          ${['一','二','三','四','五','六','日'].map(d => `<span class="wk">${d}</span>`).join('')}
+        </div>
+        <div class="gym-cal-grid">`;
+
+    for (let i = 0; i < md.firstWeekday; i++) html += '<span class="gym-cal-day empty"></span>';
+    md.days.forEach(d => {
+      const n = Store.list('gym_done:' + d).length;
+      const cls = ['gym-cal-day'];
+      if (n > 0) cls.push('has');
+      if (d === today) cls.push('today');
+      if (d === this._calSelected) cls.push('on');
+      html += `<span class="${cls.join(' ')}" onclick="Gym.calPick('${d}')" title="${Util.fmtDateZh(d)}${n?' · '+n+' 次':''}">
+        <span class="gym-cal-num">${+d.slice(-2)}</span>
+        ${n > 0 ? `<span class="gym-cal-dot">${n > 9 ? '9+' : n}</span>` : ''}
+      </span>`;
+    });
+    html += `</div>`;
+    if (this._calSelected) html += `<div id="gym-cal-detail">${this._renderCalDetail(this._calSelected)}</div>`;
+    html += `</div>`;
+    el.innerHTML = html;
+  },
+
+  _renderCalDetail(date){
+    const list = this._list(date);
+    if (!list.length) return `<p class="hint" style="margin-top:10px">${Util.fmtDateZh(date)}：这天没打卡。</p>`;
+    return `<div class="gym-cal-detail">
+      <p class="hint" style="margin:6px 0 8px"><b>${Util.fmtDateZh(date)}</b>　·　共 ${list.length} 次</p>
+      ${this._renderCheckinList(list, date, true)}
+    </div>`;
+  },
+
+  calPrev(){ this._calMonthOffset--; this._renderCalendar(); },
+  calNext(){ if (this._calMonthOffset >= 0) return; this._calMonthOffset++; this._renderCalendar(); },
+  calPick(d){
+    this._calSelected = this._calSelected === d ? null : d;
+    this._renderCalendar();
+    setTimeout(() => {
+      const det = document.getElementById('gym-cal-detail');
+      if (det && typeof det.scrollIntoView === 'function') {
+        det.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    }, 50);
+  },
+
+  setNote(date, idx, text){
+    const list = this._list(date);
+    if (idx < 0 || idx >= list.length) return;
+    const t = String(text || '').trim().slice(0, 100);
+    if ((list[idx].note || '') === t) return;
+    list[idx].note = t;
+    this._write(date, list);
+  },
+
+  delCheckin(date, idx){
+    const list = this._list(date);
+    if (idx < 0 || idx >= list.length) return;
+    list.splice(idx, 1);
+    this._write(date, list);
+    if (date === Util.today() && list.length === 0) Store.decrDaily('recap_done');
+    // 如果删除的是当前选中日历日的某条，刷新详情
     this.render();
+    if (typeof Today !== 'undefined') Today._renderGym();
+  },
+
+  addToday(){
+    const today = Util.today();
+    const list = this._list(today);
+    const wasEmpty = list.length === 0;
+    list.push({ id: Util.uid(), ts: Date.now(), note: '' });
+    this._write(today, list);
+    if (wasEmpty) Store.incrDaily('recap_done');
+    this.render();
+    if (typeof Today !== 'undefined') Today._renderGym();
+  },
+
+  undoToday(){
+    const today = Util.today();
+    const list = this._list(today);
+    if (!list.length) return;
+    list.pop();
+    this._write(today, list);
+    if (list.length === 0) Store.decrDaily('recap_done');
+    this.render();
+    if (typeof Today !== 'undefined') Today._renderGym();
   },
 
   addWeight(){
@@ -1215,7 +2007,8 @@ const Todo = {
     if (!it) return;
     it.done = !it.done;
     Store.setDaily('todo_items', list);
-    Store.incrDaily('recap_done', it.done ? 1 : -1);
+    if (it.done) Store.incrDaily('recap_done');
+    else Store.decrDaily('recap_done');
     this.render();
   },
 
