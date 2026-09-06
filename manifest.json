@@ -1,0 +1,19 @@
+{
+  "name": "小贝壳记",
+  "short_name": "小贝壳记",
+  "description": "森系×日系混搭的个人工作台——吃药、健身、项目、日程、账目、灵感、笔记都在这里",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f5efe4",
+  "theme_color": "#7d9471",
+  "icons": [
+    {
+      "src": "icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
