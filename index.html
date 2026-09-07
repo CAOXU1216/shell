@@ -55,7 +55,6 @@
 
   --pad:18px;
   --gap:12px;
-  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
   --ease:cubic-bezier(.4,0,.2,1);
   --dur:.18s;
 }
@@ -118,12 +117,14 @@ body{
 .edit-page-bar .edit-done{font-size:12px;padding:5px 14px;border:1px solid var(--accent);background:transparent;color:var(--accent);border-radius:999px;font-family:inherit;cursor:pointer;line-height:1.4}
 .edit-page-bar .edit-done:active{background:rgba(201,126,74,.12)}
 
-/* ==== 行内编辑（吃药计划等）==== */
-.item.editing{flex-wrap:wrap;gap:8px;padding:10px 12px;background:rgba(201,126,74,.06);border-radius:10px;border:1px dashed var(--accent)}
-.item input.ip{flex:1;min-width:0;padding:6px 10px;border:1px solid rgba(128,128,128,.28);border-radius:6px;background:transparent;font-size:16px;font-family:inherit;color:var(--text)}
-.item input.ip:focus{outline:none;border-color:var(--accent)}
+/* ==== 行内编辑（吃药计划、待办等）==== */
+.item.editing{flex-wrap:wrap;align-items:center;gap:8px;padding:10px 12px;background:rgba(201,126,74,.06);border-radius:10px;border:1px dashed var(--accent)}
+.item.editing::before{content:'编辑中';font-size:10px;color:var(--accent);background:rgba(201,126,74,.12);padding:2px 6px;border-radius:6px;letter-spacing:.05em;flex-shrink:0}
+.item input.ip{flex:1;min-width:0;padding:7px 11px;border:1px solid rgba(128,128,128,.32);border-radius:7px;background:rgba(255,255,255,.5);font-size:14px;line-height:1.4;font-family:inherit;color:var(--text);transition:border-color var(--dur) var(--ease)}
+.item input.ip:focus{outline:none;border-color:var(--accent);background:rgba(255,255,255,.85);box-shadow:0 0 0 3px rgba(201,126,74,.1)}
 .item input.ip-times{max-width:140px;font-variant-numeric:tabular-nums}
-.item .ip-actions{display:flex;gap:6px;margin-left:auto;flex-shrink:0}
+.item .ip-actions{display:flex;gap:6px;flex-shrink:0}
+.item .ip-actions .btn{padding:6px 14px;font-size:13px;line-height:1.4;border-radius:7px}
 
 /* ════════════════════════════════════════════════════════════
    运动·打卡列表与日历
@@ -139,6 +140,24 @@ body{
   font-variant-numeric:tabular-nums;color:var(--accent);
   width:42px
 }
+.gym-checkin-dur{
+  flex-shrink:0;font-size:14px;font-weight:600;
+  font-variant-numeric:tabular-nums;color:var(--accent);
+  background:rgba(201,126,74,.1);padding:3px 8px;border-radius:6px;
+  min-width:38px;text-align:center
+}
+.gym-checkin-dur i{font-style:normal;font-size:11px;font-weight:400;color:var(--text-dim);margin-left:1px}
+.gym-dur-input{
+  width:54px;flex-shrink:0;padding:6px 8px;
+  border:1px solid rgba(128,128,128,.28);border-radius:6px;
+  background:transparent;font-size:15px;font-weight:600;
+  font-variant-numeric:tabular-nums;text-align:center;
+  font-family:inherit;color:var(--text)
+}
+.gym-dur-input:focus{outline:none;border-color:var(--accent);background:rgba(255,255,255,.4)}
+.gym-dur-input::-webkit-inner-spin-button,.gym-dur-input::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
+.gym-dur-input[type=number]{-moz-appearance:textfield}
+.gym-dur-label{font-size:13px;color:var(--text-dim);flex-shrink:0;margin-right:2px}
 .gym-checkin .gym-note{
   flex:1;min-width:0;padding:5px 9px;
   border:1px solid transparent;border-radius:6px;
@@ -156,27 +175,27 @@ body{
 
 .gym-cal{padding-top:2px}
 .gym-cal-head{
-  display:flex;align-items:center;justify-content:space-between;margin-bottom:8px
+  display:flex;align-items:center;gap:8px;margin-bottom:8px
 }
-.gym-cal-title{font-size:15px;font-weight:600;letter-spacing:.04em}
-.gym-cal-head .btn{padding:5px 12px;font-size:13px}
+.gym-cal-title{flex:1;min-width:0;font-size:15px;font-weight:600;letter-spacing:.04em;text-align:center;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.gym-cal-head .btn{padding:5px 12px;font-size:13px;flex-shrink:0}
 .gym-cal-weekrow{
-  display:grid;grid-template-columns:repeat(7,1fr);
+  display:grid;grid-template-columns:repeat(7,minmax(0,1fr));
   margin-bottom:4px;text-align:center
 }
 .gym-cal-weekrow .wk{
   font-size:11px;color:var(--text-dim);letter-spacing:.05em;font-weight:600
 }
 .gym-cal-grid{
-  display:grid;grid-template-columns:repeat(7,1fr);
-  gap:4px
+  display:grid;grid-template-columns:repeat(7,minmax(0,1fr));
+  gap:3px
 }
 .gym-cal-day{
   position:relative;display:flex;flex-direction:column;
   align-items:center;justify-content:center;
-  aspect-ratio:1/1;min-height:40px;
+  aspect-ratio:1/1;min-width:0;min-height:0;
   border-radius:8px;cursor:pointer;
-  border:1px solid rgba(128,128,128,.12);
+  border:.5px solid rgba(128,128,128,.18);
   background:transparent;transition:background .12s,border-color .12s
 }
 .gym-cal-day:hover{background:rgba(128,128,128,.08)}
@@ -233,7 +252,6 @@ body{
 
 .hero{font-size:var(--fs-hero);font-weight:500;line-height:1.1;letter-spacing:-.01em}
 .num,.hero{font-variant-numeric:tabular-nums;font-feature-settings:"tnum"}
-.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
 .unit{font-size:var(--fs-meta);color:var(--text-dim);font-weight:400;margin-left:5px}
 
 /* ==== 表单 ==== */
@@ -261,13 +279,13 @@ input:focus,textarea:focus,select:focus{outline:none;border-color:var(--accent)}
 /* ==== 列表 ==== */
 .item{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px dashed rgba(128,128,128,.22)}
 .item:last-child{border-bottom:none}
-.item .grow{flex:1;min-width:0;line-height:1.6}
+.item .grow{flex:1;min-width:0;line-height:1.6;font-size:14px}
 .item .del{color:var(--text-dim);font-size:16px;background:none;border:none;padding:0 4px;flex-shrink:0}
 .item .meta{font-size:var(--fs-meta);color:var(--text-dim);margin-top:2px}
 .item.mini-row{padding:6px 0;cursor:pointer}
 .item.mini-row:hover{background:rgba(0,0,0,.02)}
 .item.mini-row .box{width:16px;height:16px;border-width:1.5px;border-radius:4px}
-.item.mini-row .grow{font-size:13.5px;line-height:1.45}
+.item.mini-row .grow{font-size:14px;line-height:1.45}
 .done-all{color:var(--accent);font-weight:500;margin-top:8px;font-size:13.5px}
 .box{
   width:21px;height:21px;flex-shrink:0;margin-top:1px;
@@ -292,7 +310,6 @@ input:focus,textarea:focus,select:focus{outline:none;border-color:var(--accent)}
 
 /* 标签 */
 .tag{display:inline-block;background:rgba(106,138,85,.12);color:var(--accent);padding:2px 8px;border-radius:10px;font-size:var(--fs-meta);margin:2px 4px 2px 0}
-.tag.rem{cursor:pointer;padding-right:6px}
 
 /* 项目状态 */
 .status{display:inline-block;font-size:12px;padding:2px 10px;border-radius:10px;background:rgba(0,0,0,.06);color:var(--text-dim)}
@@ -431,7 +448,7 @@ input:focus,textarea:focus,select:focus{outline:none;border-color:var(--accent)}
         <div id="medList" data-page-node-id="PYWOZlmtKTS09OheOBkADd"></div>
       </div>
 
-      <div class="card wide collapsible" id="medPlanCard" data-page-node-id="bedhFOL3G2j4kbsf1VKAP4">
+      <div class="card wide collapsible" data-page-node-id="bedhFOL3G2j4kbsf1VKAP4">
         <div class="head" onclick="this.parentElement.classList.toggle('open')" data-page-node-id="3wG7NZNaapgFDS7eh6QAgA">
           <span style="font-size:17px;font-weight:500" data-page-node-id="nHqORtCpE1cfkfs6SZnHKH">⚙️ 吃药计划</span>
           <span class="hint" style="margin:0 0 0 auto;font-weight:400" data-page-node-id="y6wMKVVL1kz6JyV2J4LMSr">点击展开/收起</span>
@@ -797,11 +814,8 @@ const Store = (() => {
 
     getDaily(key, fallback = null){ return this.get(key + ':' + Util.today(), fallback); },
     setDaily(key, val){ return this.set(key + ':' + Util.today(), val); },
-    listDaily(key, sort){ return this.list(key + ':' + Util.today(), sort); },
-    upsertDaily(key, item){ return this.upsert(key + ':' + Util.today(), item); },
     incrDaily(key, n = 1){ return this.incr(key + ':' + Util.today(), n); },
     decrDaily(key){ return this.decr(key + ':' + Util.today()); },
-    countDaily(key){ return this.count(key + ':' + Util.today()); },
 
     getSecret(key){ return driver.get(SEC + key); },
     setSecret(key, val){ return driver.set(SEC + key, val); },
@@ -1192,9 +1206,7 @@ const App = {
 };
 
 
-/* ═══════════════════════════════════════════════════════════
-   Settings · 设置页
-   ═══════════════════════════════════════════════════════════ */
+/* ==== 功能：设置 START ==== */
 const Settings = {
   render(){
     this.refreshBackupInfo();
@@ -1270,9 +1282,9 @@ const Settings = {
 };
 
 
-/* ═══════════════════════════════════════════════════════════
-   Today · 仪表盘（首页）
-   ═══════════════════════════════════════════════════════════ */
+/* ==== 功能：设置 END ==== */
+
+/* ==== 功能：仪表盘 START ==== */
 const Today = {
   _editMode:false,
 
@@ -1358,13 +1370,14 @@ const Today = {
   _renderGym(){
     const list = Gym._list(Util.today());
     const n = list.length;
+    const min = Gym._totalMin(Util.today());
     const latest = list[list.length - 1];
     const note = latest && latest.note ? latest.note : '';
     const el = document.getElementById('tc-gym');
     if (!el) return;
     el.innerHTML = `<div class="row">
       <button class="btn ${n>0?'ghost':''}" onclick="Gym.addToday()">${n>0?'✓ 再打卡一次':'打卡今天'}</button>
-      <span class="hint" style="margin-left:auto">${n>0?`今日已运动 <b>${n}</b> 次${note?' · '+Util.esc(note):''}`:'还没打卡'}</span>
+      <span class="hint" style="margin-left:auto">${n>0?`今日已运动 <b>${min}</b> 分钟（${n} 次）${note?' · '+Util.esc(note):''}`:'还没打卡'}</span>
     </div>`;
   },
 
@@ -1409,7 +1422,7 @@ const Today = {
     const el = document.getElementById('tc-inbox');
     if (!el) return;
     el.innerHTML = recent.length
-      ? recent.map(x => `<div class="item"><span class="grow">${Util.esc(x.text)}</span><span class="meta">${Util.dateOf(new Date(x._u))}</span></div>`).join('')
+      ? recent.map(x => `<div class="item mini-row"><span class="grow">${Util.esc(x.text)}</span><span class="meta">${Util.dateOf(new Date(x._u))}</span></div>`).join('')
         + `<div class="hint"><a href="javascript:App.go('inbox')">查看全部灵感 →</a></div>`
       : `<div class="empty">还没有灵感，<a href="javascript:App.go('inbox')">记一条试试</a></div>`;
   },
@@ -1480,9 +1493,9 @@ const Today = {
 };
 
 
-/* ═══════════════════════════════════════════════════════════
-   Med · 吃药打卡
-   ═══════════════════════════════════════════════════════════ */
+/* ==== 功能：仪表盘 END ==== */
+
+/* ==== 功能：吃药打卡 START ==== */
 const Med = {
   _editing: null,
 
@@ -1502,7 +1515,9 @@ const Med = {
       const valid = Util.isValidTime(x.time);
       const cls = `${checked?'done':''} ${valid?'':'invalid'}`.trim();
       const badge = valid ? '' : '<span class="badge">⚠ 时点格式异常，长按下方计划修改</span>';
-      return `<div class="item ${cls}" onclick="Med.toggle('${Util.esc(x.pid)}','${Util.esc(x.time)}', this)">
+      return `<div class="item ${cls}"
+        onpointerdown="Med.onPress(event,'${Util.esc(x.pid)}','${Util.esc(x.time)}')"
+        oncontextmenu="event.preventDefault()">
         <span class="box">${checked?'✓':''}</span>
         <span class="grow"><b style="font-variant-numeric:tabular-nums">${Util.esc(x.time)}</b> · ${Util.esc(x.name)}${badge}</span>
       </div>`;
@@ -1578,18 +1593,25 @@ const Med = {
   },
 
   /* ── 编辑模式 ── */
-  onPress(e, id){
+  /** 长按 500ms 进入编辑（计划区用）；可选传 time，今日项短按 toggle、长按触发同一药品进入计划编辑 */
+  onPress(e, id, time){
     if (this._editing === id) return;
     if (e.button !== 0 && e.pointerType === 'mouse') return;
     const el = e.currentTarget;
     const x0 = e.clientX, y0 = e.clientY;
+    let longPressed = false;
     const t = setTimeout(() => {
+      longPressed = true;
       if (navigator.vibrate) try { navigator.vibrate(20); } catch {}
       this._editing = id;
       this.render();
-      // 自动聚焦药品名输入框
+      // 自动聚焦药品名输入框；如不可见则滚到可视区
       const ip = document.getElementById('med-edit-name-' + id);
-      if (ip){ ip.focus(); ip.select(); }
+      if (ip){
+        ip.scrollIntoView({ behavior:'smooth', block:'center' });
+        setTimeout(() => ip.focus(), 350);  // 等滚动完成
+        ip.select();
+      }
     }, 500);
     const off = () => {
       clearTimeout(t);
@@ -1598,6 +1620,7 @@ const Med = {
       el.removeEventListener('pointermove',   mv);
       el.removeEventListener('pointercancel', off);
       el.removeEventListener('pointerleave',  off);
+      if (!longPressed && time) this.toggle(id, time, el);
     };
     const mv = (ev) => {
       if (Math.abs(ev.clientX - x0) > 8 || Math.abs(ev.clientY - y0) > 8) off();
@@ -1636,54 +1659,71 @@ const Med = {
 };
 
 
-/* ═══════════════════════════════════════════════════════════
-   Gym · 运动打卡（含体重曲线）
-   ═══════════════════════════════════════════════════════════ */
+/* ==== 功能：吃药打卡 END ==== */
+
+/* ==== 功能：运动打卡 START ==== */
 const Gym = {
   // 日历偏移：-1=上月 / 0=本月 / +1=下月
   _calMonthOffset: 0,
   _calSelected: null,
 
-  // 读某天的打卡记录（旧 incr 存的是 {id, _u}，自动补 ts/note）
+  // 读某天的打卡记录（旧 incr 存的是 {id, _u}，自动补 ts/note/dur）
   _list(date){
     return Store.list('gym_done:' + date).map(r => ({
       id: r.id || Util.uid(),
       ts: r.ts || (r._u ? r._u * 1000 : Date.now()),
+      dur: typeof r.dur === 'number' && r.dur > 0 ? r.dur : 30,
       note: r.note || ''
     }));
   },
 
   _write(date, list){
-    const data = list.map(r => ({ id: r.id, ts: r.ts, note: r.note, _u: Math.floor((r.ts || Date.now()) / 1000) }));
+    const data = list.map(r => ({
+      id: r.id, ts: r.ts,
+      dur: typeof r.dur === 'number' && r.dur > 0 ? r.dur : 30,
+      note: r.note || '',
+      _u: Math.floor((r.ts || Date.now()) / 1000)
+    }));
     Store.set('gym_done:' + date, data);
+  },
+
+  _totalMin(date){
+    return this._list(date).reduce((s, r) => s + (r.dur || 0), 0);
   },
 
   render(){
     const goal = Store.get('gym_goal', 25);
 
-    // 本月已运动天数
+    // 本月已运动天数 + 累计分钟
     const md = Util.monthDays();
-    let count = 0;
-    md.days.forEach(d => { if (Store.list('gym_done:' + d).length > 0) count++; });
+    let count = 0, totalMin = 0;
+    md.days.forEach(d => {
+      const l = Store.list('gym_done:' + d);
+      if (l.length > 0) count++;
+      l.forEach(r => totalMin += (typeof r.dur === 'number' && r.dur > 0 ? r.dur : 30));
+    });
 
     document.getElementById('gymMonthCount').textContent = count;
     document.getElementById('gymMonthGoal').textContent = goal;
     document.getElementById('gymMonthBar').style.width = Math.min(100, count / goal * 100) + '%';
     document.getElementById('gymMonthHint').textContent = count >= goal
-      ? `已达成本月目标 🎉`
-      : `还差 ${Math.max(0, goal - count)} 天`;
+      ? `已达成本月目标 🎉  本月累计 ${totalMin} 分钟`
+      : `还差 ${Math.max(0, goal - count)} 天  ·  本月累计 ${totalMin} 分钟`;
     document.getElementById('gymGoalInput').value = goal;
 
     // 今日打卡区
     const today = Util.today();
     const todayList = this._list(today);
     const todayCount = todayList.length;
+    const todayMin = this._totalMin(today);
     const todayEl = document.getElementById('gymTodayRow');
     todayEl.innerHTML = `
-      <div class="row" style="width:100%;margin-bottom:${todayCount?8:0}px">
+      <div class="row" style="width:100%;flex-wrap:wrap;gap:6px;margin-bottom:${todayCount?8:0}px;align-items:center">
+        <input type="number" id="gymDurInput" class="gym-dur-input" min="1" max="600" value="30" title="本次运动时长（分钟）" aria-label="运动时长分钟">
+        <span class="gym-dur-label">分钟</span>
         <button class="btn ${todayCount?'ghost':''}" onclick="Gym.addToday()">${todayCount?'✓ 再打卡一次':'打卡今天'}</button>
-        <button class="btn ghost" onclick="Gym.undoToday()" ${todayCount?'':'disabled'} style="margin-left:6px">撤销 1 次</button>
-        <span class="hint" style="margin-left:auto">${todayCount?`今日已运动 ${todayCount} 次`:'还没打卡'}</span>
+        <button class="btn ghost" onclick="Gym.undoToday()" ${todayCount?'':'disabled'}>撤销 1 次</button>
+        <span class="hint" style="margin-left:auto">${todayCount?`今日已运动 <b>${todayMin}</b> 分钟（${todayCount} 次）`:'还没打卡'}</span>
       </div>
       <div id="gymTodayList">${this._renderCheckinList(todayList, today, true)}</div>
     `;
@@ -1705,7 +1745,8 @@ const Gym = {
       const actualIdx = list.length - 1 - i;
       return `<div class="gym-checkin">
         <span class="gym-checkin-time">${Util.fmtTime(r.ts)}</span>
-        <input class="gym-note" placeholder="点添加备注（项目/强度/时长…）" value="${Util.esc(r.note||'')}"
+        <span class="gym-checkin-dur" title="本次时长（分）">${r.dur}<i>分</i></span>
+        <input class="gym-note" placeholder="点添加备注（项目/强度…）" value="${Util.esc(r.note||'')}"
                onblur="Gym.setNote('${date}', ${actualIdx}, this.value)"
                onkeydown="if(event.key==='Enter')this.blur()">
         ${withDelete ? `<button class="del" onclick="Gym.delCheckin('${date}', ${actualIdx})" title="删除这条">✕</button>` : ''}
@@ -1738,14 +1779,16 @@ const Gym = {
 
     for (let i = 0; i < md.firstWeekday; i++) html += '<span class="gym-cal-day empty"></span>';
     md.days.forEach(d => {
+      const min = this._totalMin(d);
       const n = Store.list('gym_done:' + d).length;
       const cls = ['gym-cal-day'];
-      if (n > 0) cls.push('has');
+      if (min > 0) cls.push('has');
       if (d === today) cls.push('today');
       if (d === this._calSelected) cls.push('on');
-      html += `<span class="${cls.join(' ')}" onclick="Gym.calPick('${d}')" title="${Util.fmtDateZh(d)}${n?' · '+n+' 次':''}">
+      const tip = Util.fmtDateZh(d) + (min ? ` · ${min} 分钟${n>1?` (${n} 次)`:''}` : '');
+      html += `<span class="${cls.join(' ')}" onclick="Gym.calPick('${d}')" title="${tip}">
         <span class="gym-cal-num">${+d.slice(-2)}</span>
-        ${n > 0 ? `<span class="gym-cal-dot">${n > 9 ? '9+' : n}</span>` : ''}
+        ${min > 0 ? `<span class="gym-cal-dot">${min >= 100 ? Math.floor(min/60)+'h' : min+'m'}</span>` : ''}
       </span>`;
     });
     html += `</div>`;
@@ -1758,7 +1801,7 @@ const Gym = {
     const list = this._list(date);
     if (!list.length) return `<p class="hint" style="margin-top:10px">${Util.fmtDateZh(date)}：这天没打卡。</p>`;
     return `<div class="gym-cal-detail">
-      <p class="hint" style="margin:6px 0 8px"><b>${Util.fmtDateZh(date)}</b>　·　共 ${list.length} 次</p>
+      <p class="hint" style="margin:6px 0 8px"><b>${Util.fmtDateZh(date)}</b>　·　共 ${this._totalMin(date)} 分钟（${list.length} 次）</p>
       ${this._renderCheckinList(list, date, true)}
     </div>`;
   },
@@ -1800,7 +1843,10 @@ const Gym = {
     const today = Util.today();
     const list = this._list(today);
     const wasEmpty = list.length === 0;
-    list.push({ id: Util.uid(), ts: Date.now(), note: '' });
+    // 从输入框读时长，默认 30，范围 1-600
+    const ip = document.getElementById('gymDurInput');
+    const dur = Math.max(1, Math.min(600, parseInt(ip && ip.value, 10) || 30));
+    list.push({ id: Util.uid(), ts: Date.now(), dur, note: '' });
     this._write(today, list);
     if (wasEmpty) Store.incrDaily('recap_done');
     this.render();
@@ -1868,9 +1914,9 @@ const Gym = {
 };
 
 
-/* ═══════════════════════════════════════════════════════════
-   Projects · 项目看板
-   ═══════════════════════════════════════════════════════════ */
+/* ==== 功能：运动打卡 END ==== */
+
+/* ==== 功能：项目看板 START ==== */
 const Projects = {
   render(){
     const list = Store.list('projects', (a,b) => (b._u||0) - (a._u||0));
@@ -1974,21 +2020,33 @@ const Projects = {
 };
 
 
-/* ═══════════════════════════════════════════════════════════
-   Todo · 日程待办
-   ═══════════════════════════════════════════════════════════ */
+/* ==== 功能：项目看板 END ==== */
+
+/* ==== 功能：日程待办 START ==== */
 const Todo = {
   render(){
     const items = Store.getDaily('todo_items', []);
     const done = items.filter(t => t.done).length;
     document.getElementById('todoSummary').textContent = items.length ? `已完 ${done}/${items.length}` : '';
 
-    document.getElementById('todoList').innerHTML = items.length ? items.map(t => `
-      <div class="item ${t.done?'done':''}" onclick="Todo.toggle('${t.id}')">
+    document.getElementById('todoList').innerHTML = items.length ? items.map(t => {
+      if (this._editing === t.id){
+        return `<div class="item editing">
+          <input class="ip" id="todo-edit-${t.id}" value="${Util.esc(t.text)}" placeholder="待办内容" onkeydown="if(event.key==='Enter')Todo.save('${t.id}');else if(event.key==='Escape')Todo.cancelEdit()">
+          <span class="ip-actions">
+            <button class="btn" onclick="Todo.save('${t.id}')">保存</button>
+            <button class="btn ghost" onclick="Todo.cancelEdit()">取消</button>
+          </span>
+        </div>`;
+      }
+      return `<div class="item ${t.done?'done':''}"
+        onpointerdown="Todo.onPress(event,'${t.id}')"
+        oncontextmenu="event.preventDefault()">
         <span class="box">${t.done?'✓':''}</span>
         <span class="grow">${Util.esc(t.text)}</span>
-        <button class="del" onclick="event.stopPropagation();Todo.del('${t.id}')">✕</button>
-      </div>`).join('') : '<div class="empty">还没列待办，下方添加</div>';
+        <button class="del" onpointerdown="event.stopPropagation()" onclick="event.stopPropagation();Todo.del('${t.id}')">✕</button>
+      </div>`;
+    }).join('') : '<div class="empty">还没列待办，下方添加</div>';
   },
 
   add(){
@@ -2012,17 +2070,71 @@ const Todo = {
     this.render();
   },
 
+  /** 长按 500ms 进入编辑；短按 = toggle。复用了 Med.onPress 的事件结构 */
+  onPress(e, id){
+    if (this._editing === id) return;
+    if (e.button !== 0 && e.pointerType === 'mouse') return;
+    const el = e.currentTarget;
+    const x0 = e.clientX, y0 = e.clientY;
+    let longPressed = false;
+    const t = setTimeout(() => {
+      longPressed = true;
+      if (navigator.vibrate) try { navigator.vibrate(20); } catch {}
+      this._editing = id;
+      this.render();
+      const ip = document.getElementById('todo-edit-' + id);
+      if (ip){ ip.focus(); ip.select(); }
+    }, 500);
+    const off = () => {
+      clearTimeout(t);
+      el._pt = null;
+      el.removeEventListener('pointerup',     off);
+      el.removeEventListener('pointermove',   mv);
+      el.removeEventListener('pointercancel', off);
+      el.removeEventListener('pointerleave',  off);
+      if (!longPressed) this.toggle(id);
+    };
+    const mv = (ev) => {
+      if (Math.abs(ev.clientX - x0) > 8 || Math.abs(ev.clientY - y0) > 8) off();
+    };
+    el._pt = t;
+    el.addEventListener('pointerup',     off);
+    el.addEventListener('pointermove',   mv);
+    el.addEventListener('pointercancel', off);
+    el.addEventListener('pointerleave',  off);
+  },
+
+  save(id){
+    const ip = document.getElementById('todo-edit-' + id);
+    if (!ip) return;
+    const text = ip.value.trim();
+    if (!text) return UI.toast('内容不能为空');
+    const list = Store.getDaily('todo_items', []);
+    const it = list.find(x => x.id === id);
+    if (!it){ this._editing = null; return this.render(); }
+    it.text = text;
+    Store.setDaily('todo_items', list);
+    this._editing = null;
+    this.render();
+  },
+
+  cancelEdit(){
+    this._editing = null;
+    this.render();
+  },
+
   del(id){
     const list = Store.getDaily('todo_items', []).filter(x => x.id !== id);
     Store.setDaily('todo_items', list);
+    if (this._editing === id) this._editing = null;
     this.render();
   }
 };
 
 
-/* ═══════════════════════════════════════════════════════════
-   Money · 账目
-   ═══════════════════════════════════════════════════════════ */
+/* ==== 功能：日程待办 END ==== */
+
+/* ==== 功能：账目 START ==== */
 const Money = {
   render(){
     const sum = this._monthTotal();
@@ -2079,9 +2191,9 @@ const Money = {
 };
 
 
-/* ═══════════════════════════════════════════════════════════
-   Inbox · 灵感速记
-   ═══════════════════════════════════════════════════════════ */
+/* ==== 功能：账目 END ==== */
+
+/* ==== 功能：灵感速记 START ==== */
 const Inbox = {
   render(){
     const items = Store.list('inbox', (a,b) => (b._u||0) - (a._u||0));
@@ -2118,9 +2230,9 @@ const Inbox = {
 };
 
 
-/* ═══════════════════════════════════════════════════════════
-   Notes · 自由笔记
-   ═══════════════════════════════════════════════════════════ */
+/* ==== 功能：灵感速记 END ==== */
+
+/* ==== 功能：自由笔记 START ==== */
 const Notes = {
   render(){
     const items = Store.list('notes', (a,b) => (b._u||0) - (a._u||0));
@@ -2171,9 +2283,9 @@ const Notes = {
 };
 
 
-/* ═══════════════════════════════════════════════════════════
-   Recap · 周复盘
-   ═══════════════════════════════════════════════════════════ */
+/* ==== 功能：自由笔记 END ==== */
+
+/* ==== 功能：周复盘 START ==== */
 const Recap = {
   collect(){
     const days = [], today = new Date();
@@ -2183,8 +2295,19 @@ const Recap = {
       days.push(Util.dateOf(d));
     }
     const done = days.reduce((s,d) => s + Store.count('recap_done:' + d), 0);
-    const streak = Store.get('_streak', 0);
+    const streak = this._streak();
     return { days, done, streak, from: days[0], to: days[6] };
+  },
+
+  /** 连续记录天数：从今天往前数；今天还没记就从昨天起算，避免误判断签 */
+  _streak(){
+    let d = new Date(), n = 0;
+    if (Store.count('recap_done:' + Util.dateOf(d)) === 0) d.setDate(d.getDate() - 1);
+    while (Store.count('recap_done:' + Util.dateOf(d)) > 0){
+      n++;
+      d.setDate(d.getDate() - 1);
+    }
+    return n;
   },
 
   render(){
@@ -2257,6 +2380,8 @@ const Recap = {
   }
 };
 
+
+/* ==== 功能：周复盘 END ==== */
 
 App.init();
 </script>
